@@ -6,7 +6,7 @@ using System.Text;
 
 public class ReadScoreboard : MonoBehaviour
 {
-    public string ScoreboardPath;
+    public string ScoreboardPath;   //scoreboardPath:   Assets/Scoreboard/GameJamScoreboard.txt
 
     public string[] Scoreboard;
 

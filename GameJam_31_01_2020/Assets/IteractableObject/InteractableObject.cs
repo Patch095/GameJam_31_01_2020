@@ -7,30 +7,51 @@ public class InteractableObject : MonoBehaviour
 {
     Animator anim;
     
-    public float i;
+    private float accumulator;
 
-    public float accumolator;
+    public float Status { get { return status; } }
+    private float status;
+
+    private bool isTriggered;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
 
-        i = 1;
-        accumolator = 0.1f;
+        status = 1;
+        accumulator = 0.1f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        i += accumolator;
-        i = Mathf.Clamp01(i);
-        anim.SetFloat("status", i);
+        status += accumulator;
+        status = Mathf.Clamp01(status);
+        anim.SetFloat("status", status);
     }
 
 
     public void Trigger_anim(int value)
     {
-        accumolator = value;
+        accumulator = value;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "Ghost")
+        {
+            isTriggered = true;
+            accumulator = 0.1f;
+            //anim.SetFloat("Status", status);
+        }
+        if (other.name == "Player")
+        {
+            isTriggered = true;
+            accumulator = -0.1f;
+            //anim.SetFloat("Status", status);
+        }
+
+    }
+
 }
